@@ -1,7 +1,5 @@
-// const TodoApp = require('../Modules/TodoApp');
 import TodoApp from './TodoApp';
 import TodoItem from './TodoItem';
-// const TodoItem = require('../Modules/TodoItem');
 
 const app = new TodoApp();
 

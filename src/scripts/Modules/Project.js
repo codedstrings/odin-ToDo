@@ -1,5 +1,4 @@
-// import TodoItem from "./TodoItem";
-export default class Project {
+class Project {
     constructor(name) {
         this.name = name;
         this.todos = [];
@@ -18,3 +17,4 @@ export default class Project {
         return this.todos;
       }
 }
+export default Project;
