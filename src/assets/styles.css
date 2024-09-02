@@ -1,0 +1,84 @@
+:root {
+    --primary-dark: #333;
+    --secondary-dark: #444;
+    --primary-light: #eee;
+    --secondary-light: #ddd;
+  }
+/* reset */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+}
+  body {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    /* footer support */
+    /* margin-bottom: 48px;  */
+  }
+
+  /* header */
+.header{
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+/* sidebar */
+.content{
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+}
+.content .sidebar{
+    flex: 1;
+    background-color: var(--secondary-dark);
+}
+.nav {
+  width: 300px;
+  min-width: 250px;
+  padding: 20px;
+  background-color: var(--secondary-light);
+}
+
+.content .taskview{
+    flex: 3;
+}
+/* Footer  */
+.footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-dark);
+    color: var(--secondary-light);
+    font-size: 18px;
+  }
+  .fa-github {
+    color: var(--primary-light);
+    font-size: 22px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .fa-github:hover {
+    transform: rotate(360deg) scale(1.2);
+  }
