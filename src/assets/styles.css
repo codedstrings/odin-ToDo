@@ -47,7 +47,7 @@ html, body {
 }
 .content .sidebar{
     flex: 1;
-    background-color: var(--secondary-dark);
+    background-color: var(--secondary-light);
 }
 .nav {
   width: 300px;
@@ -57,7 +57,8 @@ html, body {
 }
 
 .content .taskview{
-    flex: 3;
+    flex: 
+    4;
 }
 /* Footer  */
 .footer {
