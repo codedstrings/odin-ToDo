@@ -1,17 +1,22 @@
-import TodoApp from "./TodoApp"
+import TodoApp from "./TodoApp";
+import TodoItem from './TodoItem';
 
 export default class UI{
-  static loadHomepage(){
-    const app = new TodoApp();
-    UI.loadProjects(app);
+  constructor() {
+    this.app = new TodoApp();  // Store the TodoApp instance in the UI class
+  }
+   loadHomepage(){
+    // const app = new TodoApp();
+    this.loadProjects();
   }
 
-  static loadProjects(app){
+   loadProjects(){
     const ProjectsDiv = document.querySelector(".projects-wrapper");
-    let projectNames = app.listProjects();
+    let projectNames = this.app.listProjects();
     projectNames.forEach((projectName) => {
-      this.createProjectTab(projectName, ProjectsDiv);
+      UI.createProjectTab(projectName, ProjectsDiv);
     });
+    this.initProjectButtons(); 
   }
 
   static createProjectTab(name, ProjectsDiv) {
@@ -19,20 +24,35 @@ export default class UI{
     const userProject = document.createElement("div");
     userProject.classList.add("project-item");
     userProject.innerHTML = `
-      <button class="button-project" data-project-button>
+      <button class="button-project" data-project-name="${name}">
         <span class="left-project-panel">
           <i class="fas fa-tasks"></i>
           <span>${name}</span>
         </span>
+        </button>
         <span class="right-project-panel">
           <i class="fas fa-times"></i>
         </span>
-      </button>`;
+    `;
 
     ProjectsDiv.appendChild(userProject);  // Append the project to the sidebar
   }
 
   initProjectButtons(){
-    const projectBtn = document.querySelector(".button-project")
+    const projectBtns = document.querySelectorAll(".button-project");  // Select all project buttons
+    projectBtns.forEach((btn) => {
+      btn.addEventListener('click',  (event) => this.onProjectButtonClick(event));//arrow function binds this context to button
+    });
+  }
+  
+  onProjectButtonClick(event){
+    const project = event.currentTarget;  // The clicked button
+    let projectName = project.getAttribute("data-project-name");
+    console.log(projectName);
+    this.OpenProjectTodos(projectName);
+  }
+  
+  OpenProjectTodos(projectName){
+    this.app.viewTodos(projectName)//doesn't work.
   }
 }
