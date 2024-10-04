@@ -44,10 +44,12 @@ class TodoApp {
 
   viewTodos(projectName) {
     const project = this.getProject(projectName);
+    const todos = project.getTodos();
     if (project) {
-      project.getTodos().forEach((todo, index) => {
+      todos.forEach((todo, index) => {
         console.log(`${index + 1}. ${todo.title} - Due: ${todo.dueDate} - Priority: ${todo.priority} - Completed: ${todo.completed}`);
       });
+      return todos;
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
