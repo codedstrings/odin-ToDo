@@ -4,13 +4,22 @@ import TodoItem from './TodoItem';
 export default class UI {
   constructor() {
     this.app = new TodoApp();  // Store the TodoApp instance in the UI class
+    this.newProjectPopup = document.querySelector(".add-project-popup");
+    this.newProjectPopupAddBtn = document.querySelector(".button-add-project-popup");
+    this.newProjectNameInput = document.querySelector(".input-add-project-popup");
+    
+    //adding event listeners  
+    this.newProjectPopupAddBtn.addEventListener('click', (event) => this.handleAddNewProject(event));
   }
+
   loadHomepage() {
     this.loadProjects();
   }
 
   loadProjects() {
-    const ProjectsDiv = document.querySelector(".projects-wrapper");
+    const ProjectsDiv = document.querySelector(".projects-list");
+    ProjectsDiv.innerHTML = ''; //refresh Projects list
+
     let projectNames = this.app.listProjects();
     projectNames.forEach((projectName) => {
       UI.createProjectTab(projectName, ProjectsDiv);
@@ -19,7 +28,7 @@ export default class UI {
   }
 
   static createProjectTab(name, ProjectsDiv) {
-    console.log(name)
+    console.log(name);
     const userProject = document.createElement("div");
     userProject.classList.add("project-item");
     userProject.innerHTML = `
@@ -41,6 +50,27 @@ export default class UI {
     projectBtns.forEach((btn) => {
       btn.addEventListener('click', (event) => this.onProjectButtonClick(event));//arrow function binds this context to button
     });
+
+    const newProjectBtn = document.querySelector(".button-add-project");
+    newProjectBtn.addEventListener('click', (event) => this.openAddProjectPopup(event));
+  }
+
+  openAddProjectPopup(event) {
+    this.newProjectPopup.classList.add("active");
+    this.newProjectNameInput.value = "";    // Clear the input field
+  }
+
+  handleAddNewProject(event) {
+    const newProjectName = this.newProjectNameInput.value;
+    const exisitingProjects = this.app.listProjects();
+    if(newProjectName && !exisitingProjects.includes(newProjectName)){
+      this.app.addProject(newProjectName);
+      this.loadProjects();
+    }
+    else{
+      alert("Project Name cannot be duplicate or null!")
+    }    
+    this.newProjectPopup.classList.remove("active");
   }
 
   onProjectButtonClick(event){
@@ -61,7 +91,13 @@ export default class UI {
     if (todoItems) {
       todoItems.forEach(todoItem => {
         let todoElement = document.createElement("div");
-        todoElement.innerHTML = `<div class=todo-item>${todoItem.title}</div>`;
+        todoElement.innerHTML = `
+          <div class=todo-item>
+            <span>${todoItem.title}</span>
+            <span>${todoItem.dueDate}</span>
+            <span>${todoItem.priority}</span>
+          </div>
+        `;
         taskviewSection.appendChild(todoElement);
       });
     }

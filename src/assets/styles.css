@@ -1,9 +1,9 @@
 :root {
-    --primary-dark: #333;
-    --secondary-dark: #444;
-    --primary-light: #eee;
-    --secondary-light: #ddd;
-  }
+  --primary-dark: #333;
+  --secondary-dark: #444;
+  --primary-light: #eee;
+  --secondary-light: #ddd;
+}
 /* reset */
 *,
 *::after,
@@ -12,42 +12,45 @@
   padding: 0;
   margin: 0;
 }
-html, body {
+
+html,
+body {
   height: 100%;
   margin: 0;
 }
-  body {
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    /* footer support */
-    /* margin-bottom: 48px;  */
-  }
 
-  /* header */
-.header{
-    position: sticky;
-    top: 0;
-    background-color: var(--primary-dark);
-    color: var(--primary-light);
-    padding:  10px 20px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 1.5rem;
+body {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  font-family: "Roboto", sans-serif;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  /* footer support */
+  /* margin-bottom: 48px;  */
+}
+
+/* header */
+.header {
+  position: sticky;
+  top: 0;
+  background-color: var(--primary-dark);
+  color: var(--primary-light);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.5rem;
 }
 /* sidebar */
-.content{
-    display: flex;
-    flex-grow: 1;
-    width: 100%;
+.content {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
 }
-.content .sidebar{
-    flex: 1;
-    background-color: var(--secondary-light);
+.content .sidebar {
+  flex: 1;
+  background-color: var(--secondary-light);
 }
 .nav {
   width: 300px;
@@ -55,10 +58,20 @@ html, body {
   padding: 20px;
   background-color: var(--secondary-light);
 }
+.add-project-popup {
+  display: none;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.add-project-popup.active {
+  display: block !important;
+}
+
 /* taskview */
-.content .taskview{
-    flex: 
-    4;
+.content .taskview {
+  flex: 4;
 }
 /* The Modal (hidden by default) */
 .modal {
@@ -98,25 +111,25 @@ html, body {
 
 /* Footer  */
 .footer {
-    position: sticky;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 10px;
-    background-color: var(--primary-dark);
-    color: var(--secondary-light);
-    font-size: 18px;
-  }
-  .fa-github {
-    color: var(--primary-light);
-    font-size: 22px;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .fa-github:hover {
-    transform: rotate(360deg) scale(1.2);
-  }
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: var(--primary-dark);
+  color: var(--secondary-light);
+  font-size: 18px;
+}
+.fa-github {
+  color: var(--primary-light);
+  font-size: 22px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+  transform: rotate(360deg) scale(1.2);
+}

@@ -1,63 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Odin-ToDo</title>
-    <link rel="icon" type="image/x-icon" href="./assets/to-do-list.png">
-    <!-- <script src="index.js"></script> -->
-    <script
-    src="https://kit.fontawesome.com/4c536a6bd5.js"
-    crossorigin="anonymous"
-  ></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Odin-ToDo</title>
+  <link rel="icon" type="image/x-icon" href="./assets/to-do-list.png" />
+  <!-- <script src="index.js"></script> -->
+  <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <header class="header">
-      <i class="fa-solid fa-check-double fa-2x"></i>
-        <h1 class="headerText">ToDo</h1>
-    </header>
-    <main class="content">
-      <nav class="sidebar">
-        <div class="projects-wrapper">
-          <div class="projects-header">Projects</div>
-        </div>
-      </nav>
-      <section class="taskview"></section>
-      <div id="todoModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>Create New ToDo</h2>
-          <form id="todoForm">
-            <div class="title-wrapper">
-              <label for="todoTitle">Title:</label>
-              <input type="text" id="todoTitle" name="title" required><br><br>
-            </div>
-            <div class="description-wrapper">
-              <label for="todoDescription">Description:</label>
-              <textarea id="todoDescription" name="description" required></textarea><br><br>
-            </div>
-            <div class="dudate-wrapper">
-              <label for="dueDate">Due-date</label>
-              <input type="date" id="dueDate" name="dueDate" required/>
-            </div>
-            <div class="priority-wrapper">
-              <input type="radio" id="priority-low" name="priority" value="low" required>
-              <label for="priority-low">Low</label>
-              <input type="radio" id="priority-medium" name="priority" value="medium" required>
-              <label for="priority-medium">Medium</label>
-              <input type="radio" id="priority-high" name="priority" value="high" required>
-              <label for="priority-high">High</label>
-            </div>
-            <button type="submit" class="submit-todo">Add ToDo</button>
-          </form>
+  <header class="header">
+    <i class="fa-solid fa-check-double fa-2x"></i>
+    <h1 class="headerText">ToDo</h1>
+  </header>
+  <main class="content">
+    <nav class="sidebar">
+      <div class="projects-wrapper">
+        <div class="projects-header">Projects</div>
+        <div class="projects-list"></div>
+        <button class="button-add-project" id="button-add-project">
+          <i class="fas fa-plus"></i>
+          Add Project
+        </button>
+        <div class="add-project-popup" id="add-project-popup">
+          <input class="input-add-project-popup" id="input-add-project-popup" type="text" />
+          <div class="add-project-popup-buttons">
+            <button class="button-add-project-popup" id="button-add-project-popup">
+              Add
+            </button>
+            <button class="button-cancel-project-popup" id="button-cancel-project-popup">
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
-    </main>
-    <footer class="footer">
-        <p>Developed by @codedstrings</p>
-        <a href="https://github.com/codedstrings" target="_blank" rel="noopener" aria-label="github/codedstrings" >
-          <i class="fab fa-github"></i
-        ></a>
-    </footer>
+    </nav>
+    <section class="taskview"></section>
+    <div id="todoModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create New ToDo</h2>
+        <form id="todoForm">
+          <div class="title-wrapper">
+            <label for="todoTitle">Title:</label>
+            <input type="text" id="todoTitle" name="title" required /><br /><br />
+          </div>
+          <div class="description-wrapper">
+            <label for="todoDescription">Description:</label>
+            <textarea id="todoDescription" name="description" required></textarea><br /><br />
+          </div>
+          <div class="dudate-wrapper">
+            <label for="dueDate">Due-date</label>
+            <input type="date" id="dueDate" name="dueDate" required />
+          </div>
+          <div class="priority-wrapper">
+            <input type="radio" id="priority-low" name="priority" value="low" required />
+            <label for="priority-low">Low</label>
+            <input type="radio" id="priority-medium" name="priority" value="medium" required />
+            <label for="priority-medium">Medium</label>
+            <input type="radio" id="priority-high" name="priority" value="high" required />
+            <label for="priority-high">High</label>
+          </div>
+          <button type="submit" class="submit-todo">Add ToDo</button>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>Developed by @codedstrings</p>
+    <a href="https://github.com/codedstrings" target="_blank" rel="noopener" aria-label="github/codedstrings">
+      <i class="fab fa-github"></i>
+    </a>
+  </footer>
 </body>
+
 </html>
