@@ -7,9 +7,11 @@ export default class UI {
     this.newProjectPopup = document.querySelector(".add-project-popup");
     this.newProjectPopupAddBtn = document.querySelector(".button-add-project-popup");
     this.newProjectNameInput = document.querySelector(".input-add-project-popup");
+    this.newProjectPopupCancelBtn = document.querySelector(".button-cancel-project-popup");
     
-    //adding event listeners  
+    //adding global event listeners  
     this.newProjectPopupAddBtn.addEventListener('click', (event) => this.handleAddNewProject(event));
+    this.newProjectPopupCancelBtn.addEventListener('click', ()=> this.newProjectPopup.classList.remove("active"));
   }
 
   loadHomepage() {
