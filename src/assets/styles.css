@@ -3,6 +3,9 @@
   --secondary-dark: #444;
   --primary-light: #eee;
   --secondary-light: #ddd;
+  --high-priority: #ffcccb;
+  --medium-priority: #ffe5b4;
+  --low-priority: #90ee90;
 }
 /* reset */
 *,
@@ -107,6 +110,44 @@ body {
 .close:focus {
   color: black;
   cursor: pointer;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.todo-checkbox {
+  margin-right: 10px;
+}
+
+.todo-title {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.todo-due-date {
+  margin-left: auto;
+}
+
+.priority-high {
+  background-color: var(--high-priority); /* Light red for high priority */
+}
+
+.priority-medium {
+  background-color: var(--medium-priority); /* Light orange for medium priority */
+}
+
+.priority-low {
+  background-color: var(--low-priority); /* Light green for low priority */
+}
+
+.todo-checkbox:checked + .todo-title {
+  text-decoration: line-through;
+  opacity: 0.6;
 }
 
 /* Footer  */

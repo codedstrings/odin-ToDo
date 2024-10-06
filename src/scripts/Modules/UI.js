@@ -84,32 +84,42 @@ export default class UI {
 
   OpenProject(projectName) {
     const taskviewSection = document.querySelector(".taskview");
-    taskviewSection.innerHTML = ``;
     taskviewSection.innerHTML = `
-        <h3 class="taskview-header">${projectName}</h3>
-        <div class="tasks-wrapper></div>
-      `;
-    let todoItems = this.app.viewTodos(projectName)//load the projectTodos.
+      <h3 class="taskview-header">${projectName}</h3>
+      <div class="tasks-wrapper"></div>
+    `;
+  
+    let todoItems = this.app.viewTodos(projectName); // load the projectTodos
     if (todoItems) {
+      const tasksWrapper = taskviewSection.querySelector('.tasks-wrapper');
       todoItems.forEach(todoItem => {
         let todoElement = document.createElement("div");
+        todoElement.className = `todo-item priority-${todoItem.priority.toLowerCase()}`;
         todoElement.innerHTML = `
-          <div class=todo-item>
-            <span>${todoItem.title}</span>
-            <span>${todoItem.dueDate}</span>
-            <span>${todoItem.priority}</span>
-          </div>
+          <input type="checkbox" class="todo-checkbox" id="todo-${todoItem.title}" ${todoItem.completed ? 'checked' : ''}>
+          <label for="todo-${todoItem.title}" class="todo-title">${todoItem.title}</label>
+          <span class="todo-due-date">${todoItem.dueDate}</span>
         `;
-        taskviewSection.appendChild(todoElement);
+        tasksWrapper.appendChild(todoElement);
+        
+        // Add event listener for checkbox
+        const checkbox = todoElement.querySelector('.todo-checkbox');
+        // checkbox.addEventListener('change', (event) => this.handleTodoCompletion(event, todoItem.title, projectName));
+        checkbox.addEventListener('change', (event) => this.app.updateTodoCompletion(todoItem.title, projectName));
       });
     }
+  
     // Create the "Create New ToDo" button
     let createNewTodoBtn = document.createElement("div");
     createNewTodoBtn.innerHTML = `<button class="new-todo-btn">Create New ToDo item</button>`;
     taskviewSection.appendChild(createNewTodoBtn);
-
+  
     // Open the modal when "Create New ToDo" button is clicked
-    createNewTodoBtn.addEventListener('click', () => this.onCreateNewTodo(projectName))
+    createNewTodoBtn.addEventListener('click', () => this.onCreateNewTodo(projectName));
+  }
+  
+  handleTodoCompletion(event, todotitle, projectName) {
+    this.app.updateTodoCompletion(todotitle, projectName);
   }
 
   onCreateNewTodo(projectName) {

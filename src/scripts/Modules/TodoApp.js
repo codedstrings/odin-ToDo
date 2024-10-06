@@ -4,7 +4,15 @@ import TodoItem from './TodoItem';
 class TodoApp {
   constructor() {
     this.projects = [];
-    this.addProject("Default"); // Add a default project
+    // Add a default project and default todo for testing
+    this.addProject("Default"); 
+    let todo = new TodoItem();
+    todo.title = "default Todo";
+    todo.description = "default desc";
+    todo.dueDate = new Date().toJSON().slice(0,10);
+    todo.priority = "low";
+    todo.completed = true;
+    this.addTodoToProject("Default",todo);
   }
 
   addProject(name) {
@@ -53,6 +61,15 @@ class TodoApp {
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
+  }
+
+  updateTodoCompletion(todotitle, projectName){
+    const project = this.getProject(projectName);
+    project.getTodos().forEach((item)=>{
+      if(item.title===todotitle){
+        item.toggleComplete();
+      }
+    });   
   }
 }
 
