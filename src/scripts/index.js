@@ -7,4 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ui = new UI();
     ui.loadHomepage();
   });
+  const dateTimeEle = document.getElementById("currentDatetime");
+  const currDate = new Date();
+  dateTimeEle.innerText = currDate.toLocaleDateString();
 // mainMenu(); //use to call the consoleApp(uncomment import statement).

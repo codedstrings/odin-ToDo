@@ -42,8 +42,13 @@ body {
   padding: 10px 20px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
   font-size: 1.5rem;
+}
+.header-left-section{
+  display: flex;
+  align-items: center;
 }
 /* sidebar */
 .content {
