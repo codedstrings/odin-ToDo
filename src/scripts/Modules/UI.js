@@ -34,15 +34,15 @@ export default class UI {
     const userProject = document.createElement("div");
     userProject.classList.add("project-item");
     userProject.innerHTML = `
-        <button class="button-project" data-project-name="${name}">
-          <span class="left-project-panel">
+        <span class="left-project-panel">
+          <button class="button-project" data-project-name="${name}">
             <i class="fas fa-tasks"></i>
-            <span>${name}</span>
-          </span>
+            <span class="project-name">${name}</span>
           </button>
-          <span class="right-project-panel">
-            <i class="fas fa-times"></i>
-          </span>
+        </span>
+        <span class="right-project-panel">
+          <i class="fas fa-times"></i>
+        </span>
       `;   
     ProjectsDiv.appendChild(userProject);  // Append the project to the sidebar
   }
@@ -65,6 +65,7 @@ export default class UI {
   handleAddNewProject(event) {
     const newProjectName = this.newProjectNameInput.value;
     const exisitingProjects = this.app.listProjects();
+    const selectedprojectItem = document.querySelector('.selected-project');
     if(newProjectName && !exisitingProjects.includes(newProjectName)){
       this.app.addProject(newProjectName);
       this.loadProjects();
@@ -77,6 +78,10 @@ export default class UI {
 
   onProjectButtonClick(event){
     const project = event.currentTarget;  // The clicked button
+    const allprojectItems = document.querySelectorAll('.project-item');
+    allprojectItems.forEach(item=>item.classList.remove("selected-project"));
+    const selectedprojectItem = project.closest('.project-item');
+    selectedprojectItem.classList.add("selected-project");
     let projectName = project.getAttribute("data-project-name");
     console.log(projectName);
     this.OpenProject(projectName);
