@@ -55,6 +55,11 @@ export default class UI {
 
     const newProjectBtn = document.querySelector(".button-add-project");
     newProjectBtn.addEventListener('click', (event) => this.openAddProjectPopup(event));
+
+    const deleteBtns = document.querySelectorAll('.right-project-panel');
+    deleteBtns.forEach((btn) => {
+      btn.addEventListener('click', (event) => this.onProjectDelete(event));//arrow function binds this context to button
+    });
   }
 
   openAddProjectPopup(event) {
@@ -123,6 +128,27 @@ export default class UI {
     createNewTodoBtn.addEventListener('click', () => this.onCreateNewTodo(projectName));
   }
   
+  onProjectDelete(event) {
+    try {
+      const projectItem = event.currentTarget.closest('.project-item');
+      const projectButton = projectItem.querySelector('.button-project');
+      const projectName = projectButton.getAttribute('data-project-name');
+  
+      if (!projectName) {
+        throw new Error('Could not find project name');
+      }
+  
+      // Confirm before deleting
+      if (confirm(`Are you sure you want to delete the project "${projectName}"?`)) {
+        this.app.removeProject(projectName);
+        console.log(`${projectName} deleted`);
+        this.loadProjects(); // Refresh the project list
+      }
+    } catch (error) {
+      console.error('Error deleting project:', error.message);
+    }
+  }
+
   handleTodoCompletion(event, todotitle, projectName) {
     this.app.updateTodoCompletion(todotitle, projectName);
   }
