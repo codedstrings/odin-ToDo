@@ -4,6 +4,7 @@ import TodoItem from './TodoItem';
 export default class UI {
   constructor() {
     this.app = new TodoApp();  // Store the TodoApp instance in the UI class
+    this.selectedProject = 'Default';
     this.newProjectPopup = document.querySelector(".add-project-popup");
     this.newProjectPopupAddBtn = document.querySelector(".button-add-project-popup");
     this.newProjectNameInput = document.querySelector(".input-add-project-popup");
@@ -24,15 +25,17 @@ export default class UI {
 
     let projectNames = this.app.listProjects();
     projectNames.forEach((projectName) => {
-      UI.createProjectTab(projectName, ProjectsDiv);
+      UI.createProjectTab(projectName, ProjectsDiv, projectName === this.selectedProject);
     });
     this.initProjectButtons();
   }
 
-  static createProjectTab(name, ProjectsDiv) {
-    console.log(name);
+  static createProjectTab(name, ProjectsDiv, isSelected) {
     const userProject = document.createElement("div");
     userProject.classList.add("project-item");
+    if (isSelected) {
+      userProject.classList.add("selected-project");
+    }
     userProject.innerHTML = `
         <span class="left-project-panel">
           <button class="button-project" data-project-name="${name}">
@@ -73,7 +76,9 @@ export default class UI {
     const selectedprojectItem = document.querySelector('.selected-project');
     if(newProjectName && !exisitingProjects.includes(newProjectName)){
       this.app.addProject(newProjectName);
+      this.selectedProject = newProjectName; // Set the new project as selected and opens it
       this.loadProjects();
+      this.OpenProject(newProjectName);
     }
     else{
       alert("Project Name cannot be duplicate or null!")
@@ -83,13 +88,13 @@ export default class UI {
 
   onProjectButtonClick(event){
     const project = event.currentTarget;  // The clicked button
-    const allprojectItems = document.querySelectorAll('.project-item');
-    allprojectItems.forEach(item=>item.classList.remove("selected-project"));
-    const selectedprojectItem = project.closest('.project-item');
-    selectedprojectItem.classList.add("selected-project");
     let projectName = project.getAttribute("data-project-name");
     console.log(projectName);
     this.OpenProject(projectName);
+    
+    // Update the selected project
+    this.selectedProject = projectName; 
+    this.loadProjects();
   }
 
   OpenProject(projectName) {
@@ -142,7 +147,12 @@ export default class UI {
       if (confirm(`Are you sure you want to delete the project "${projectName}"?`)) {
         this.app.removeProject(projectName);
         console.log(`${projectName} deleted`);
+        // If the deleted project was the selected one, select the default project
+        if (this.selectedProject === projectName) {
+          this.selectedProject = 'Default'; // Or the first available project
+        }
         this.loadProjects(); // Refresh the project list
+        this.OpenProject(this.selectedProject);
       }
     } catch (error) {
       console.error('Error deleting project:', error.message);
