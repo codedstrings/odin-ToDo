@@ -18,6 +18,7 @@ While a to-do list application is often seen as a basic and cliché project, thi
 
 ### SOLID Principles
 - **Single Responsibility Principle**: Each class and module has a single responsibility, making the code easier to manage and extend.
+- **Event-Driven Programming**: Working with JavaScript's event system to create a dynamic, interactive user experience.
 - **Open/Closed Principle**: The code is open for extension but closed for modification, allowing new features to be added without altering existing functionality.
 
 ### Object-Oriented Programming in JavaScript
@@ -47,3 +48,9 @@ You can view the live version of the project [here](https://codedstrings.github.
       ```bash
       npm run dev
       ```
+
+## Future Improvements
+- Add local storage support to persist data between sessions.
+- Implement user authentication to manage personal To-Do lists.
+- Enhance the UI with more animations and better design.
+
