@@ -7,6 +7,7 @@
   --medium-priority: #ffe5b4;
   --low-priority: #90ee90;
   --button-color: rgba(57, 46, 46, 0.1);
+  --button-color-hover: rgba(57, 46, 46, 0.219);
 }
 /* reset */
 *,
@@ -126,6 +127,9 @@ body {
   background-color: var(--button-color);
   margin-left: 5px;
 }
+.button-add-project:hover{
+  background-color: var(--button-color-hover);  
+}
 
 .add-project-popup {
   margin: 10px 5px 10px;
@@ -153,6 +157,18 @@ body {
 /* taskview */
 .content .taskview {
   flex: 4;
+  padding: 1.2rem;
+}
+.tasks-wrapper, .new-todo-btn-wrapper{
+  padding-left: 10px;
+}
+.new-todo-btn{
+  width: 100%;
+  margin-top: 5px;
+  background-color: var(--button-color);
+}
+.new-todo-btn:hover{
+  background-color: var(--button-color-hover);
 }
 /* The Modal (hidden by default) */
 .modal {
