@@ -7,6 +7,7 @@
   --medium-priority: #ffe5b4;
   --low-priority: #90ee90;
   --button-color: rgba(57, 46, 46, 0.1);
+  --button-color-hover: rgba(57, 46, 46, 0.219);
 }
 /* reset */
 *,
@@ -79,6 +80,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
 }
+/* list project section */
 .projects-list, .button-add-project{
   padding-left: 5px;
 }
@@ -120,11 +122,15 @@ body {
 .right-project-panel:hover{
   transform: scale(1.1);
 }
+/* New project section */
 .button-add-project{
   margin-top: 5px;
   padding: 10px 0;
   background-color: var(--button-color);
   margin-left: 5px;
+}
+.button-add-project:hover{
+  background-color: var(--button-color-hover);  
 }
 
 .add-project-popup {
@@ -153,41 +159,7 @@ body {
 /* taskview */
 .content .taskview {
   flex: 4;
-}
-/* The Modal (hidden by default) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  max-width: 400px;
-}
-
-/* Close Button */
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  cursor: pointer;
+  padding: 1.2rem;
 }
 
 .todo-item {
@@ -227,6 +199,19 @@ body {
   text-decoration: line-through;
   opacity: 0.6;
 }
+/* New Task Button */
+.tasks-wrapper, .new-todo-btn-wrapper{
+  padding-left: 10px;
+}
+.new-todo-btn{
+  width: 100%;
+  margin-top: 5px;
+  background-color: var(--button-color);
+  font-size: medium;
+}
+.new-todo-btn:hover{
+  background-color: var(--button-color-hover);
+}
 
 /* Footer  */
 .footer {
@@ -251,4 +236,101 @@ body {
 
 .fa-github:hover {
   transform: rotate(360deg) scale(1.2);
+}
+
+/* The Modal (hidden by default) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  display: flex ;
+  flex-direction: column;
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 15px;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 400px;
+}
+.modal-header{
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.modal-header>h2{
+  flex-grow: 1;
+  /* text-align: center; */
+}
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: black;
+  cursor: pointer;
+}
+/* Modal Content -form*/
+.modal-content > form {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* Label takes 1fr, input takes 2fr */
+  grid-template-rows: min-content min-content min-content auto;
+  grid-row-gap: 1.2rem;
+  width: 100%;
+}
+
+.title-wrapper,
+.description-wrapper,
+.duedate-wrapper,
+.priority-wrapper {
+  /* To allow the grid to position the label and input/textarea */
+  display: contents; 
+}
+
+.title-wrapper label,
+.description-wrapper label,
+.duedate-wrapper label {
+  grid-column: 1; /* Place labels in the first column */
+  justify-self: start; /* Align the labels to the start */
+}
+
+.title-wrapper input,
+.description-wrapper textarea,
+.duedate-wrapper input {
+  grid-column: 2; /* Inputs and textarea in the second column */
+  width: 100%; /* Full width of the input area */
+}
+
+.priority-wrapper {
+  grid-column: 1 / span 2; /* Make the priority options take full width */
+  display: grid;
+  grid-template-columns: repeat(6, auto); 
+  align-items: center;
+}
+.priority-wrapper>input, .priority-wrapper>label{
+  cursor: pointer;
+}
+.submit-todo {
+  grid-column: 1 / span 2; /* Make the submit button take full width */
+  width: 100%;
+  margin-top: 10px;
+  font-size: large;
+  background-color: var(--button-color);
+}
+
+.submit-todo:hover {
+  background-color: var(--button-color-hover);
 }
