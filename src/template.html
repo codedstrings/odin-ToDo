@@ -45,19 +45,21 @@
     <section class="taskview"></section>
     <div id="todoModal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Create New ToDo</h2>
+        <div class="modal-header">
+          <h2>Create New Task</h2>
+          <span class="close">&times;</span>
+        </div>
         <form id="todoForm">
           <div class="title-wrapper">
             <label for="todoTitle">Title:</label>
-            <input type="text" id="todoTitle" name="title" required /><br /><br />
+            <input type="text" id="todoTitle" name="title" required />
           </div>
           <div class="description-wrapper">
             <label for="todoDescription">Description:</label>
-            <textarea id="todoDescription" name="description" required></textarea><br /><br />
+            <textarea id="todoDescription" name="description"></textarea>
           </div>
-          <div class="dudate-wrapper">
-            <label for="dueDate">Due-date</label>
+          <div class="duedate-wrapper">
+            <label for="dueDate">Due-date:</label>
             <input type="date" id="dueDate" name="dueDate" required />
           </div>
           <div class="priority-wrapper">
@@ -68,7 +70,7 @@
             <input type="radio" id="priority-high" name="priority" value="high" required />
             <label for="priority-high">High</label>
           </div>
-          <button type="submit" class="submit-todo">Add ToDo</button>
+          <button type="submit" class="submit-todo">Add Task</button>
         </form>
       </div>
     </div>
