@@ -126,7 +126,8 @@ export default class UI {
   
     // Create the "Create New ToDo" button
     let createNewTodoBtn = document.createElement("div");
-    createNewTodoBtn.innerHTML = `<button class="new-todo-btn">Create New ToDo item</button>`;
+    createNewTodoBtn.classList.add("new-todo-btn-wrapper");
+    createNewTodoBtn.innerHTML = `<button class="new-todo-btn">Add New Task</button>`;
     taskviewSection.appendChild(createNewTodoBtn);
   
     // Open the modal when "Create New ToDo" button is clicked
