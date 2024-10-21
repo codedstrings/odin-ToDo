@@ -4,24 +4,41 @@ import TodoItem from './TodoItem';
 class TodoApp {
   constructor() {
     this.projects = [];
-    // Add a default project and default todo for testing
-    this.addProject("Default"); 
-    let todo = new TodoItem();
-    todo.title = "default Todo";
-    todo.description = "default desc";
-    todo.dueDate = new Date().toJSON().slice(0,10);
-    todo.priority = "low";
-    todo.completed = true;
-    this.addTodoToProject("Default",todo);
+    this.loadFromLocalStorage();
+    if (this.projects.length === 0) {
+      this.addProject("Default");
+    }
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem('todoApp', JSON.stringify(this.projects));
+  }
+
+  loadFromLocalStorage() {
+    const data = localStorage.getItem('todoApp');
+    if (data) {
+      const parsedData = JSON.parse(data);
+      this.projects = parsedData.map(projectData => {
+        const project = new Project(projectData.name);
+        project.todos = projectData.todos.map(todoData => {
+          const todo = new TodoItem(todoData.title, todoData.description, todoData.dueDate, todoData.priority);
+          todo.completed = todoData.completed;
+          return todo;
+        });
+        return project;
+      });
+    }
   }
 
   addProject(name) {
     const project = new Project(name);
     this.projects.push(project);
+    this.saveToLocalStorage();
   }
 
   removeProject(name) {
     this.projects = this.projects.filter(project => project.name !== name);
+    this.saveToLocalStorage();
   }
 
   getProject(name) {
@@ -36,6 +53,7 @@ class TodoApp {
     const project = this.getProject(projectName);
     if (project) {
       project.addTodo(todo);
+      this.saveToLocalStorage();
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
@@ -45,6 +63,7 @@ class TodoApp {
     const project = this.getProject(projectName);
     if (project) {
       project.removeTodo(todoIndex);
+      this.saveToLocalStorage();
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
@@ -60,16 +79,20 @@ class TodoApp {
       return todos;
     } else {
       console.log(`Project ${projectName} does not exist.`);
+      return[];
     }
   }
 
-  updateTodoCompletion(todotitle, projectName){
+  updateTodoCompletion(todotitle, projectName) {
     const project = this.getProject(projectName);
-    project.getTodos().forEach((item)=>{
-      if(item.title===todotitle){
-        item.toggleComplete();
-      }
-    });   
+    if (project) {
+      project.getTodos().forEach((item) => {
+        if (item.title === todotitle) {
+          item.toggleComplete();
+        }
+      });
+      this.saveToLocalStorage();
+    }
   }
 }
 
