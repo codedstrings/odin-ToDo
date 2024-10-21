@@ -150,9 +150,9 @@ export default class UI {
       if (confirm(`Are you sure you want to delete the project "${projectName}"?`)) {
         this.app.removeProject(projectName);
         console.log(`${projectName} deleted`);
-        // If the deleted project was the selected one, select the default project
+        // If the deleted project was the selected one, select the first available project
         if (this.selectedProject === projectName) {
-          this.selectedProject = 'Default'; // Or the first available project
+          this.selectedProject = this.app.listProjects()[0] || 'Add a Project';
         }
         this.loadProjects(); // Refresh the project list
         this.OpenProject(this.selectedProject);
