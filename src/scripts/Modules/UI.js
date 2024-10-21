@@ -4,12 +4,11 @@ import TodoItem from './TodoItem';
 export default class UI {
   constructor() {
     this.app = new TodoApp();  // Store the TodoApp instance in the UI class
-    this.selectedProject = 'Default';
+    this.selectedProject = this.app.listProjects()[0] || 'Default';
     this.newProjectPopup = document.querySelector(".add-project-popup");
     this.newProjectPopupAddBtn = document.querySelector(".button-add-project-popup");
     this.newProjectNameInput = document.querySelector(".input-add-project-popup");
     this.newProjectPopupCancelBtn = document.querySelector(".button-cancel-project-popup");
-    
     //adding global event listeners  
     this.newProjectPopupAddBtn.addEventListener('click', (event) => this.handleAddNewProject(event));
     this.newProjectPopupCancelBtn.addEventListener('click', ()=> this.newProjectPopup.classList.remove("active"));
@@ -17,6 +16,7 @@ export default class UI {
 
   loadHomepage() {
     this.loadProjects();
+    this.OpenProject(this.selectedProject);
   }
 
   loadProjects() {
@@ -72,16 +72,15 @@ export default class UI {
 
   handleAddNewProject(event) {
     const newProjectName = this.newProjectNameInput.value;
-    const exisitingProjects = this.app.listProjects();
-    const selectedprojectItem = document.querySelector('.selected-project');
-    if(newProjectName && !exisitingProjects.includes(newProjectName)){
+    const existingProjects = this.app.listProjects();
+    if(newProjectName && !existingProjects.includes(newProjectName)){
       this.app.addProject(newProjectName);
       this.selectedProject = newProjectName; // Set the new project as selected and opens it
       this.loadProjects();
       this.OpenProject(newProjectName);
     }
     else{
-      alert("Project Name cannot be duplicate or null!")
+      alert("Project Name cannot be duplicate or null!");
     }    
     this.newProjectPopup.classList.remove("active");
   }
@@ -119,8 +118,11 @@ export default class UI {
         
         // Add event listener for checkbox
         const checkbox = todoElement.querySelector('.todo-checkbox');
-        // checkbox.addEventListener('change', (event) => this.handleTodoCompletion(event, todoItem.title, projectName));
-        checkbox.addEventListener('change', (event) => this.app.updateTodoCompletion(todoItem.title, projectName));
+        checkbox.addEventListener('change', () => {
+          this.app.updateTodoCompletion(todoItem.title, projectName);
+          this.OpenProject(projectName);  // Refresh the project view
+        });
+        
       });
     }
   
@@ -148,9 +150,9 @@ export default class UI {
       if (confirm(`Are you sure you want to delete the project "${projectName}"?`)) {
         this.app.removeProject(projectName);
         console.log(`${projectName} deleted`);
-        // If the deleted project was the selected one, select the default project
+        // If the deleted project was the selected one, select the first available project
         if (this.selectedProject === projectName) {
-          this.selectedProject = 'Default'; // Or the first available project
+          this.selectedProject = this.app.listProjects()[0] || 'Add a Project';
         }
         this.loadProjects(); // Refresh the project list
         this.OpenProject(this.selectedProject);
