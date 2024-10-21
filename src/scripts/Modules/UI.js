@@ -12,6 +12,11 @@ export default class UI {
     //adding global event listeners  
     this.newProjectPopupAddBtn.addEventListener('click', (event) => this.handleAddNewProject(event));
     this.newProjectPopupCancelBtn.addEventListener('click', ()=> this.newProjectPopup.classList.remove("active"));
+    this.newProjectNameInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        this.handleAddNewProject(event);
+      }
+    });
   }
 
   loadHomepage() {
@@ -68,10 +73,11 @@ export default class UI {
   openAddProjectPopup(event) {
     this.newProjectPopup.classList.add("active");
     this.newProjectNameInput.value = "";    // Clear the input field
+    this.newProjectNameInput.focus();
   }
 
   handleAddNewProject(event) {
-    const newProjectName = this.newProjectNameInput.value;
+    const newProjectName = this.newProjectNameInput.value.trim();
     const existingProjects = this.app.listProjects();
     if(newProjectName && !existingProjects.includes(newProjectName)){
       this.app.addProject(newProjectName);
