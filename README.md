@@ -36,7 +36,7 @@ You can view the live version of the project [here](https://codedstrings.github.
 - HTML/CSS
 - Webpack (for bundling modules)
 - GitHub Pages (for deployment)
-- Figma- 
+  
 ## How to Run Locally
 
 1. Clone the repository.
