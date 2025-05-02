@@ -102,6 +102,7 @@ export default class UI {
     this.loadProjects();
   }
 
+
   OpenProject(projectName) {
     const taskviewSection = document.querySelector(".taskview");
     taskviewSection.innerHTML = `
@@ -112,13 +113,16 @@ export default class UI {
     let todoItems = this.app.viewTodos(projectName); // load the projectTodos
     if (todoItems) {
       const tasksWrapper = taskviewSection.querySelector('.tasks-wrapper');
-      todoItems.forEach(todoItem => {
+      todoItems.forEach((todoItem, index) => {
         let todoElement = document.createElement("div");
         todoElement.className = `todo-item priority-${todoItem.priority.toLowerCase()}`;
         todoElement.innerHTML = `
           <input type="checkbox" class="todo-checkbox" id="todo-${todoItem.title}" ${todoItem.completed ? 'checked' : ''}>
           <label for="todo-${todoItem.title}" class="todo-title">${todoItem.title}</label>
           <span class="todo-due-date">${todoItem.dueDate}</span>
+          <button class="delete-todo-btn" data-index="${index}">
+            <i class="fas fa-times"></i>
+          </button>
         `;
         tasksWrapper.appendChild(todoElement);
         
@@ -129,20 +133,32 @@ export default class UI {
           this.OpenProject(projectName);  // Refresh the project view
         });
         
+        // Add event listener for delete button
+        const deleteBtn = todoElement.querySelector('.delete-todo-btn');
+        deleteBtn.addEventListener('click', (event) => {
+          this.onDeleteTodo(event, projectName);
+        });
       });
     }
-  
     // Create the "Create New ToDo" button
     let createNewTodoBtn = document.createElement("div");
     createNewTodoBtn.classList.add("new-todo-btn-wrapper");
     createNewTodoBtn.innerHTML = `<button class="new-todo-btn">Add New Task</button>`;
     taskviewSection.appendChild(createNewTodoBtn);
-  
+
     // Open the modal when "Create New ToDo" button is clicked
     createNewTodoBtn.addEventListener('click', () => this.onCreateNewTodo(projectName));
   }
-  
-  onProjectDelete(event) {
+  // Add this new method to the UI class to handle task deletion
+  onDeleteTodo(event, projectName) {
+    const todoIndex = parseInt(event.currentTarget.getAttribute('data-index'));
+    
+    if (confirm('Are you sure you want to delete this task?')) {
+      this.app.removeTodoFromProject(projectName, todoIndex);
+      this.OpenProject(projectName); // Refresh the project view
+    }
+  }
+    onProjectDelete(event) {
     try {
       const projectItem = event.currentTarget.closest('.project-item');
       const projectButton = projectItem.querySelector('.button-project');
