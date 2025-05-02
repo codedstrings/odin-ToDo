@@ -168,6 +168,15 @@ body {
   padding: 10px;
   margin-bottom: 5px;
   border-radius: 5px;
+  position: relative;
+}
+
+.todo-item:hover .delete-todo-btn {
+  opacity: 0.8;
+}
+
+.todo-due-date {
+  margin-right: 5px;
 }
 
 .todo-checkbox {
@@ -211,6 +220,29 @@ body {
 }
 .new-todo-btn:hover{
   background-color: var(--button-color-hover);
+}
+
+.delete-todo-btn {
+  background: transparent;
+  border: none;
+  color: var(--primary-dark);
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin-left: 10px;
+  padding: 5px;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+}
+
+.delete-todo-btn:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Footer  */
@@ -333,4 +365,66 @@ body {
 
 .submit-todo:hover {
   background-color: var(--button-color-hover);
+}
+
+/* Hamburger menu icon - hidden on desktop */
+.hamburger-menu {
+  display: none !important;
+  font-size: 1.5rem;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+  /* Hide the To-Do icon on mobile */
+  .header-left-section .fa-check-double {
+    display: none;
+  }
+  
+  /* Show hamburger menu on mobile */
+  .hamburger-menu {
+    display: block !important;
+    margin-right: 10px;
+  }
+  
+  /* Content layout changes for mobile */
+  .content {
+    position: relative; /* For absolute positioning of sidebar */
+  }
+  
+  /* Hide sidebar by default on mobile */
+  .sidebar {
+    position: absolute;
+    left: -100%;
+    top: 0;
+    height: 100%;
+    width: 80%;
+    z-index: 10;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+  
+  /* Make taskview take full width by default */
+  .taskview {
+    width: 100%;
+  }
+  
+  /* Overlay when sidebar is open */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .sidebar-overlay.active {
+    display: block;
+  }
 }
