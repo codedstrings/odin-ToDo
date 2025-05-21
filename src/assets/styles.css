@@ -86,6 +86,7 @@ body {
 /* list project section */
 .projects-list{
   overflow-y: auto;
+  overflow-x: hidden;
 }
 .projects-list, .button-add-project{
   padding-left: 5px;
