@@ -30,6 +30,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 body {
@@ -65,6 +66,7 @@ body {
   display: flex;
   flex-grow: 1;
   width: 100%;
+  overflow: hidden;
 }
 .content>.sidebar {
   flex: 1;
@@ -74,6 +76,7 @@ body {
 .projects-wrapper {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 .projects-header{
   font-size: 1.2rem;
@@ -81,6 +84,9 @@ body {
   font-weight: bold;
 }
 /* list project section */
+.projects-list{
+  overflow-y: auto;
+}
 .projects-list, .button-add-project{
   padding-left: 5px;
 }
@@ -207,6 +213,10 @@ body {
 .todo-checkbox:checked + .todo-title {
   text-decoration: line-through;
   opacity: 0.6;
+}
+.tasks-wrapper {
+  height: calc(100% - 60px); /* Subtract space for the "Add Task" button */
+  overflow-y: auto;
 }
 /* New Task Button */
 .tasks-wrapper, .new-todo-btn-wrapper{
