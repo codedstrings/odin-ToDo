@@ -4,7 +4,6 @@ import TodoItem from './TodoItem';
 class TodoApp {
   constructor() {
     this.projects = [];
-    this.loadFromLocalStorage();
     if (this.projects.length === 0) {
       this.addProject("Default");
     }
@@ -14,6 +13,31 @@ class TodoApp {
     localStorage.setItem('todoApp', JSON.stringify(this.projects));
   }
 
+  async loadFromAPI() {
+    try {
+      const response = await fetch('https://dummyjson.com/c/5542-d5f6-4d55-a1da');
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      // Convert the raw data back to Project and TodoItem instances
+      this.projects = data.map(projectData => {
+        const project = new Project(projectData.name);
+        project.todos = projectData.todos.map(todoData => {
+          const todo = new TodoItem(todoData.title, todoData.description, todoData.dueDate, todoData.priority);
+          todo.completed = todoData.completed;
+          return todo;
+        });
+        return project;
+      });
+    } catch (error) {
+      console.error('Error loading data from API:', error);
+      // Fallback to empty state or show error message
+      this.projects = [];
+    }
+  }
+
+  
   loadFromLocalStorage() {
     const data = localStorage.getItem('todoApp');
     if (data) {

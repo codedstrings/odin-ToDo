@@ -3,9 +3,9 @@ import '../assets/styles.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import UI from './Modules/UI'
 import TodoApp from './Modules/TodoApp';
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const ui = new UI();
-  ui.loadHomepage();
+  await ui.loadHomepage();
   
   // Setup mobile sidebar functionality
   setupMobileSidebar();
