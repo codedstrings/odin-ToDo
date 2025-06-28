@@ -9,13 +9,34 @@ class TodoApp {
     }
   }
 
+/**
+ * @deprecated This method is depracated and no longer used. use updateDataToAPI() instead.
+ */
   saveToLocalStorage() {
     localStorage.setItem('todoApp', JSON.stringify(this.projects));
+  }
+  async updateDataToAPI() {
+    try {
+      const response = await fetch(BASE_URL+'/api/Project/1', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.projects) //this should be sent as json
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update data');
+      }
+      console.log('Data updated successfully:', response);
+    } catch (error) {
+      console.error('Error updating data to API:', error);
+    }
   }
 
   async loadFromAPI() {
     try {
-      const response = await fetch('https://dummyjson.com/c/5542-d5f6-4d55-a1da');
+      var base = BASE_URL;
+      const response = await fetch(BASE_URL+'/api/Project/1');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }
@@ -37,7 +58,9 @@ class TodoApp {
     }
   }
 
-  
+  /**
+ * @deprecated This method is depracated and no longer used. Use loadFromAPI() instead.
+ */
   loadFromLocalStorage() {
     const data = localStorage.getItem('todoApp');
     if (data) {
@@ -57,12 +80,12 @@ class TodoApp {
   addProject(name) {
     const project = new Project(name);
     this.projects.push(project);
-    this.saveToLocalStorage();
+    this.updateDataToAPI();
   }
 
   removeProject(name) {
     this.projects = this.projects.filter(project => project.name !== name);
-    this.saveToLocalStorage();
+    this.updateDataToAPI();
   }
 
   getProject(name) {
@@ -77,7 +100,7 @@ class TodoApp {
     const project = this.getProject(projectName);
     if (project) {
       project.addTodo(todo);
-      this.saveToLocalStorage();
+      this.updateDataToAPI();
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
@@ -87,7 +110,7 @@ class TodoApp {
     const project = this.getProject(projectName);
     if (project) {
       project.removeTodo(todoIndex);
-      this.saveToLocalStorage();
+      this.updateDataToAPI();
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
@@ -115,7 +138,7 @@ class TodoApp {
           item.toggleComplete();
         }
       });
-      this.saveToLocalStorage();
+      this.updateDataToAPI();
     }
   }
 }
