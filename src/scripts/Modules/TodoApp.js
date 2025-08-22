@@ -4,16 +4,63 @@ import TodoItem from './TodoItem';
 class TodoApp {
   constructor() {
     this.projects = [];
-    this.loadFromLocalStorage();
     if (this.projects.length === 0) {
       this.addProject("Default");
     }
   }
 
+/**
+ * @deprecated This method is depracated and no longer used. use updateDataToAPI() instead.
+ */
   saveToLocalStorage() {
     localStorage.setItem('todoApp', JSON.stringify(this.projects));
   }
+  async updateDataToAPI() {
+    try {
+      const response = await fetch(BASE_URL+'/api/Project/1', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.projects) //this should be sent as json
+      });
+      if (!response.ok) {
+        throw new Error('Failed to update data');
+      }
+      console.log('Data updated successfully:', response);
+    } catch (error) {
+      console.error('Error updating data to API:', error);
+    }
+  }
 
+  async loadFromAPI() {
+    try {
+      var base = BASE_URL;
+      const response = await fetch(BASE_URL+'/api/Project/1');
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const data = await response.json();
+      // Convert the raw data back to Project and TodoItem instances
+      this.projects = data.map(projectData => {
+        const project = new Project(projectData.name);
+        project.todos = projectData.todos.map(todoData => {
+          const todo = new TodoItem(todoData.title, todoData.description, todoData.dueDate, todoData.priority);
+          todo.completed = todoData.completed;
+          return todo;
+        });
+        return project;
+      });
+    } catch (error) {
+      console.error('Error loading data from API:', error);
+      // Fallback to empty state or show error message
+      this.projects = [];
+    }
+  }
+
+  /**
+ * @deprecated This method is depracated and no longer used. Use loadFromAPI() instead.
+ */
   loadFromLocalStorage() {
     const data = localStorage.getItem('todoApp');
     if (data) {
@@ -33,12 +80,12 @@ class TodoApp {
   addProject(name) {
     const project = new Project(name);
     this.projects.push(project);
-    this.saveToLocalStorage();
+    this.updateDataToAPI();
   }
 
   removeProject(name) {
     this.projects = this.projects.filter(project => project.name !== name);
-    this.saveToLocalStorage();
+    this.updateDataToAPI();
   }
 
   getProject(name) {
@@ -53,7 +100,7 @@ class TodoApp {
     const project = this.getProject(projectName);
     if (project) {
       project.addTodo(todo);
-      this.saveToLocalStorage();
+      this.updateDataToAPI();
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
@@ -63,7 +110,7 @@ class TodoApp {
     const project = this.getProject(projectName);
     if (project) {
       project.removeTodo(todoIndex);
-      this.saveToLocalStorage();
+      this.updateDataToAPI();
     } else {
       console.log(`Project ${projectName} does not exist.`);
     }
@@ -91,7 +138,7 @@ class TodoApp {
           item.toggleComplete();
         }
       });
-      this.saveToLocalStorage();
+      this.updateDataToAPI();
     }
   }
 }

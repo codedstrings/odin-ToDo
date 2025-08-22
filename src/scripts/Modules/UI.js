@@ -19,7 +19,8 @@ export default class UI {
     });
   }
 
-  loadHomepage() {
+  async loadHomepage() {
+    await this.app.loadFromAPI(); // Fetch projects from the server first
     this.loadProjects();
     this.OpenProject(this.selectedProject);
   }
