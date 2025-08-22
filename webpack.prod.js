@@ -15,7 +15,7 @@ module.exports = merge(common, {
 //   },
   plugins: [
     new webpack.DefinePlugin({
-      BASE_URL: JSON.stringify('http://codedstrings.somee.com')
+      BASE_URL: JSON.stringify('https://codedstrings.somee.com')
     }),
   ],
 });
