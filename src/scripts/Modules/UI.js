@@ -20,7 +20,7 @@ export default class UI {
   }
 
   async loadHomepage() {
-    await this.app.loadFromAPI(); // Fetch projects from the server first
+    await this.app.initialize(); // Fetch projects from the server first
     this.loadProjects();
     this.OpenProject(this.selectedProject);
   }

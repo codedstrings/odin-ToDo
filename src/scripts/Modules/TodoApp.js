@@ -4,6 +4,11 @@ import TodoItem from './TodoItem';
 class TodoApp {
   constructor() {
     this.projects = [];
+  }
+
+  async initialize() {
+    await this.loadFromAPI();
+    // Only create default project if no projects exist after loading
     if (this.projects.length === 0) {
       this.addProject("Default");
     }
