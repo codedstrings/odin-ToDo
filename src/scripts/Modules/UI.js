@@ -20,9 +20,27 @@ export default class UI {
   }
 
   async loadHomepage() {
-    await this.app.initialize(); // Fetch projects from the server first
-    this.loadProjects();
-    this.OpenProject(this.selectedProject);
+    try {
+      this.showLoadingScreen();
+      await this.app.initialize(); // Fetch projects from the server first
+      this.loadProjects();
+      this.OpenProject(this.selectedProject);
+      this.hideLoadingScreen();
+    } catch (error) {
+      console.error('Failed to initialize app:', error);
+      this.hideLoadingScreen();
+    }
+  }
+
+  hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    document.body.classList.remove('loading');
+    loadingScreen.style.display = 'none';
+  }
+  showLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    document.body.classList.add('loading');
+    loadingScreen.style.display = 'flex';
   }
 
   loadProjects() {
