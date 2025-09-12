@@ -1,8 +1,8 @@
-// import mainMenu from "./Modules/consoleApp.js"
 import '../assets/styles.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import UI from './Modules/UI'
-import TodoApp from './Modules/TodoApp';
+
+document.body.classList.add('loading');
 document.addEventListener('DOMContentLoaded', async () => {
   const ui = new UI();
   await ui.loadHomepage();
